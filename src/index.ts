@@ -90,7 +90,7 @@ let miTarea = {
     urgencia: 1
 }
 
-let {titulo: string, estado, urgencia} = miTarea;
+let {titulo, estado, urgencia} : {titulo: string, estado: Estados, urgencia: number} = miTarea;
 
 
 // Types de TypeScript
