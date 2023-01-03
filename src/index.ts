@@ -1,5 +1,7 @@
 // esto es un comentario
 
+import { deleteAllCookies, deleteCookie, getCookieValue, setCookie } from 'cookies-utils';
+
 /**
  * Document comment
  * Multiline
@@ -13,7 +15,7 @@ console.log("Agur Typescript!!!");
 var nombre: string = 'Sergio';
 
 console.log("Hola, " + nombre);
-console.log("¿Que tal, ", nombre, "?" );
+console.log("¿Que tal, ", nombre, "?");
 console.log(`¿Como han ido las vacaciones, ${nombre}?`);
 
 let email = 'sergio@example.com';
@@ -90,7 +92,7 @@ let miTarea = {
     urgencia: 1
 }
 
-let {titulo, estado, urgencia} : {titulo: string, estado: Estados, urgencia: number} = miTarea;
+let { titulo, estado, urgencia }: { titulo: string, estado: Estados, urgencia: number } = miTarea;
 
 
 // Types de TypeScript
@@ -115,7 +117,7 @@ console.log(coche.anio < 2010 ? `Coche: ${coche.nombre} es viejo` : `Coche: ${co
 // if - else
 if (error) {
     console.log(`Hay un error`);
-    
+
 } else {
     console.log(`No hay un error`);
 }
@@ -186,7 +188,7 @@ while (tarea1.estado !== Estados.Completado) {
     if (tarea1.urgencia == 5) {
         tarea1.estado = Estados.Completado
     } else {
-        tarea1.urgencia ++;
+        tarea1.urgencia++;
     }
 }
 
@@ -248,26 +250,26 @@ function despedidaOpcional(nombre?: string) {
 despedidaOpcional(); // Adios
 despedidaOpcional('Juanjo'); // Adios Juanjo
 
-function variosParams(nombre: string, apellidos?:string, edad: number = 18) {
+function variosParams(nombre: string, apellidos?: string, edad: number = 18) {
 
     if (apellidos) {
         console.log(`${nombre} ${apellidos} tiene ${edad} años`);
     } else {
         console.log(`${nombre} tiene ${edad} años`);
     }
-    
+
 }
 
 variosParams('James'); // James tiene 18 años
 variosParams('James', 'Bond Blue'); // James Bond Blue tiene 18 años
 variosParams('James', undefined, 30); // James tiene 30 años
 variosParams('James', 'Bond Blue', 30); // James Bond Blue tiene 30 años
-variosParams(nombre='James', apellidos='Bond Blue');  // James Bond Blue tiene 18 años
+variosParams(nombre = 'James', apellidos = 'Bond Blue');  // James Bond Blue tiene 18 años
 
 function ejemploVariosTipos(a: string | number) {
-    if(typeof(a) === 'string') {
+    if (typeof (a) === 'string') {
         console.log(`a es un string`);
-    } else if (typeof(a) === 'number') {
+    } else if (typeof (a) === 'number') {
         console.log(`a es un number`);
     } else {
         console.log(`a es un number`);
@@ -370,10 +372,10 @@ async function ejemploAsync() {
 ejemploAsync().then(res => {
     console.log(res);
 })
-.catch(err => {
-    console.error('Ha habido un error', err);
-})
-.finally(() => 'Todo a terminado');
+    .catch(err => {
+        console.error('Ha habido un error', err);
+    })
+    .finally(() => 'Todo a terminado');
 
 // Generators
 
@@ -419,3 +421,52 @@ console.log(generatorSaga.next().value); // 2 (lo ha hecho el worker)
 console.log(generatorSaga.next().value); // 3 (lo ha hecho el worker)
 console.log(generatorSaga.next().value); // 4 (lo ha hecho el watcher)
 
+// Sobrecarga de funciones
+
+function mostrarError(error: string | number): void {
+    if (typeof error === 'string') {
+        console.log('Ha habido un error:', error);
+    } else if (typeof error === 'number') {
+        console.log('Ha habido un error con código:', error);
+    }
+}
+
+
+// Persistencia de datos
+// 1. LocalStorage -> almacena los datos en el navegador (no se elimina automáticamente)
+// 2. SessionStorage -> La diferencia radica en la sesión del navegador. Es decir, los datos se persisten en la sesión del navegador.
+// 3. Cookies --> Tienen una fecha de caducidad y también tienen un ámbito de URL
+
+// LocalStorage
+
+// function guardarEnLocalStorage(): void {
+//     localStorage.set('nombre', 'Martin');
+// }
+
+// function leerEnLocalStorage(): void {
+//     let nombre = localStorage.get('nombre');
+// }
+
+// Cookies
+
+const cookieOptions = {
+    name: "usuario", // string,
+    value: "sergio", // string,
+    maxAge: 10 * 60, // optional number (value in seconds),
+    expires: new Date(2099, 10, 1), // optional Date,
+    path: "/", // optional string,
+};
+
+// Crear la cookie
+setCookie(cookieOptions);
+
+// Leer una cookie
+let cookieLeida = getCookieValue('usuario');
+
+// Eliminar cookie
+deleteCookie('usuario');
+
+// eliminar todas las cookies
+deleteAllCookies();
+
+// min 25:10
