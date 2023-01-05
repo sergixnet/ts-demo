@@ -469,4 +469,39 @@ deleteCookie('usuario');
 // eliminar todas las cookies
 deleteAllCookies();
 
-// min 25:10
+
+// Clase Temporizador
+
+class Temporizador {
+
+    public terminar?: (tiempo:number) => void;
+
+    public empezar(): void {
+        setTimeout(() => {
+            if (!this.terminar) {
+                return;
+            }
+
+            this.terminar(Date.now());
+        }, 10000);
+    }
+}
+
+const miTemporizador: Temporizador = new Temporizador();
+
+miTemporizador.terminar = (tiempo: number) => {
+    console.log('Hemos terminado la tarea: ', tiempo);
+};
+
+miTemporizador.empezar();
+
+setInterval(() => console.log('tic'), 1000);
+
+// Eliminamos la ejecución de la función
+delete miTemporizador.terminar;
+
+// Extender de EventTarget
+
+class Temporizador2 extends EventTarget {}
+
+// min 52:36
